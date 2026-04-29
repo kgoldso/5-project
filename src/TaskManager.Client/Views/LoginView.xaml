@@ -1,0 +1,67 @@
+<UserControl x:Class="TaskManager.Client.Views.LoginView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:converters="clr-namespace:TaskManager.Client.Converters"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <UserControl.Resources>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource MahApps.Brushes.ThemeBackground}">
+        <Border VerticalAlignment="Center" HorizontalAlignment="Center"
+                Width="380" Padding="32"
+                Background="{DynamicResource MahApps.Brushes.Control.Background}"
+                CornerRadius="8"
+                BorderBrush="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="1">
+            <StackPanel>
+                <TextBlock Text="{DynamicResource LoginTitle}"
+                           FontSize="24" FontWeight="Bold"
+                           HorizontalAlignment="Center" Margin="0,0,0,24"/>
+
+                <!-- Ошибка -->
+                <TextBlock Text="{Binding ErrorMessage}"
+                           Foreground="Red" TextWrapping="Wrap"
+                           Margin="0,0,0,12"
+                           Visibility="{Binding ErrorMessage, Converter={StaticResource NullToCollapsed}}"/>
+
+                <!-- Имя пользователя -->
+                <TextBlock Text="{DynamicResource Username}" Margin="0,0,0,4"/>
+                <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                         mah:TextBoxHelper.Watermark="{DynamicResource Username}"
+                         Margin="0,0,0,12" FontSize="14" Padding="8"/>
+
+                <!-- Пароль -->
+                <TextBlock Text="{DynamicResource Password}" Margin="0,0,0,4"/>
+                <PasswordBox x:Name="PasswordBox"
+                             mah:TextBoxHelper.Watermark="{DynamicResource Password}"
+                             Margin="0,0,0,20" FontSize="14" Padding="8"
+                             PasswordChanged="PasswordBox_PasswordChanged"/>
+
+                <!-- Кнопка входа -->
+                <Button Content="{DynamicResource Login}"
+                        Command="{Binding LoginCommand}"
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBool}}"
+                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                        FontSize="14" Padding="0,10"
+                        HorizontalAlignment="Stretch"/>
+
+                <!-- Индикатор загрузки -->
+                <mah:ProgressRing IsActive="{Binding IsBusy}"
+                                  Width="30" Height="30" Margin="0,12,0,0"
+                                  Visibility="{Binding IsBusy, Converter={StaticResource BoolToVis}}"/>
+
+                <!-- Ссылка на регистрацию -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16,0,0">
+                    <TextBlock Text="{DynamicResource NoAccount}" Margin="0,0,4,0"
+                               VerticalAlignment="Center"/>
+                    <Button Content="{DynamicResource Register}"
+                            Command="{Binding GoToRegisterCommand}"
+                            Style="{DynamicResource MahApps.Styles.Button.Flat}"
+                            Foreground="{DynamicResource MahApps.Brushes.Accent}"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

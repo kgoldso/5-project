@@ -1,0 +1,128 @@
+<UserControl x:Class="TaskManager.Client.Views.ProcessListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:converters="clr-namespace:TaskManager.Client.Converters"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <UserControl.Resources>
+    </UserControl.Resources>
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок и кнопка создания -->
+        <DockPanel Grid.Row="0" Margin="0,0,0,12">
+            <TextBlock Text="{DynamicResource Processes}"
+                       FontSize="22" FontWeight="SemiBold"
+                       VerticalAlignment="Center"/>
+            <Button Content="{DynamicResource NewProcess}"
+                    Command="{Binding NewProcessCommand}"
+                    DockPanel.Dock="Right" HorizontalAlignment="Right"
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                    Padding="16,8"/>
+        </DockPanel>
+
+        <!-- Ошибка -->
+        <TextBlock Grid.Row="0" Text="{Binding ErrorMessage}" Foreground="Red"
+                   Margin="0,40,0,0" TextWrapping="Wrap"
+                   Visibility="{Binding ErrorMessage, Converter={StaticResource NullToCollapsed}}"/>
+
+        <!-- TabControl для семантического разделения -->
+        <TabControl Grid.Row="1">
+            <TabItem Header="{DynamicResource Processes}">
+                <Grid>
+                    <!-- Панель редактирования (поверх списка) -->
+                    <Border Visibility="{Binding IsEditing, Converter={StaticResource BoolToVis}}"
+                            Background="{DynamicResource MahApps.Brushes.Control.Background}"
+                            Padding="20" CornerRadius="6"
+                            BorderBrush="{DynamicResource MahApps.Brushes.Accent}" BorderThickness="1"
+                            VerticalAlignment="Top" HorizontalAlignment="Center"
+                            MinWidth="400" Margin="0,20,0,0"
+                            Panel.ZIndex="10">
+                        <StackPanel>
+                            <TextBlock Text="{DynamicResource ProcessTitle}" Margin="0,0,0,4"/>
+                            <TextBox Text="{Binding EditTitle, UpdateSourceTrigger=PropertyChanged}"
+                                     FontSize="14" Padding="8" Margin="0,0,0,12"/>
+
+                            <TextBlock Text="{DynamicResource ProcessDescription}" Margin="0,0,0,4"/>
+                            <TextBox Text="{Binding EditDescription, UpdateSourceTrigger=PropertyChanged}"
+                                     FontSize="14" Padding="8" Margin="0,0,0,16"
+                                     AcceptsReturn="True" TextWrapping="Wrap" Height="80"/>
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button Content="{DynamicResource Cancel}"
+                                        Command="{Binding CancelEditCommand}"
+                                        Margin="0,0,8,0" Padding="16,8"/>
+                                <Button Content="{DynamicResource Save}"
+                                        Command="{Binding SaveProcessCommand}"
+                                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                                        Padding="16,8"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Список процессов -->
+                    <ItemsControl ItemsSource="{Binding Processes}" Margin="0,4,0,0">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="6" Padding="16" CornerRadius="6"
+                                        Width="280"
+                                        Background="{DynamicResource MahApps.Brushes.Control.Background}"
+                                        BorderBrush="{DynamicResource MahApps.Brushes.Gray8}"
+                                        BorderThickness="1"
+                                        Cursor="Hand">
+                                    <Border.InputBindings>
+                                        <MouseBinding MouseAction="LeftDoubleClick"
+                                                      Command="{Binding DataContext.OpenProcessCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                      CommandParameter="{Binding}"/>
+                                    </Border.InputBindings>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Title}" FontSize="16" FontWeight="SemiBold"
+                                                   TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock Text="{Binding Description}" Opacity="0.7"
+                                                   Margin="0,4,0,8" TextTrimming="CharacterEllipsis"
+                                                   MaxHeight="40"/>
+                                        <DockPanel>
+                                            <TextBlock VerticalAlignment="Center" Opacity="0.5">
+                                                <Run Text="{Binding TaskCount, Mode=OneWay}"/>
+                                                <Run Text=" "/><Run Text="{DynamicResource Tasks}"/>
+                                            </TextBlock>
+                                            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal"
+                                                        HorizontalAlignment="Right">
+                                                <Button Content="{DynamicResource Edit}"
+                                                        Command="{Binding DataContext.EditProcessCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                        CommandParameter="{Binding}"
+                                                        Style="{DynamicResource MahApps.Styles.Button.Flat}"
+                                                        Padding="8,4" Margin="0,0,4,0"/>
+                                                <Button Content="{DynamicResource Delete}"
+                                                        Command="{Binding DataContext.DeleteProcessCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                        CommandParameter="{Binding}"
+                                                        Style="{DynamicResource MahApps.Styles.Button.Flat}"
+                                                        Foreground="Red" Padding="8,4"/>
+                                            </StackPanel>
+                                        </DockPanel>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <!-- Загрузка -->
+                    <mah:ProgressRing IsActive="{Binding IsBusy}"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"
+                                      Visibility="{Binding IsBusy, Converter={StaticResource BoolToVis}}"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

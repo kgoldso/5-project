@@ -1,0 +1,68 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+
+# ──── Source projects ────
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.Domain", "src\TaskManager.Domain\TaskManager.Domain.csproj", "{B1000001-0001-0001-0001-000000000001}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.Shared", "src\TaskManager.Shared\TaskManager.Shared.csproj", "{B1000002-0002-0002-0002-000000000002}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.API", "src\TaskManager.API\TaskManager.API.csproj", "{B1000003-0003-0003-0003-000000000003}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.Client", "src\TaskManager.Client\TaskManager.Client.csproj", "{B1000004-0004-0004-0004-000000000004}"
+EndProject
+
+# ──── Test projects ────
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.API.Tests", "tests\TaskManager.API.Tests\TaskManager.API.Tests.csproj", "{B1000005-0005-0005-0005-000000000005}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.Client.Tests", "tests\TaskManager.Client.Tests\TaskManager.Client.Tests.csproj", "{B1000006-0006-0006-0006-000000000006}"
+EndProject
+
+# ──── Solution Folders ────
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F0000001-0001-0001-0001-000000000001}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F0000002-0002-0002-0002-000000000002}"
+EndProject
+
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B1000001-0001-0001-0001-000000000001}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1000001-0001-0001-0001-000000000001}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1000001-0001-0001-0001-000000000001}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1000001-0001-0001-0001-000000000001}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1000002-0002-0002-0002-000000000002}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1000002-0002-0002-0002-000000000002}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1000002-0002-0002-0002-000000000002}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1000002-0002-0002-0002-000000000002}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1000003-0003-0003-0003-000000000003}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1000003-0003-0003-0003-000000000003}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1000003-0003-0003-0003-000000000003}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1000003-0003-0003-0003-000000000003}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1000004-0004-0004-0004-000000000004}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1000004-0004-0004-0004-000000000004}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1000004-0004-0004-0004-000000000004}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1000004-0004-0004-0004-000000000004}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1000005-0005-0005-0005-000000000005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1000005-0005-0005-0005-000000000005}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1000005-0005-0005-0005-000000000005}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1000005-0005-0005-0005-000000000005}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1000006-0006-0006-0006-000000000006}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1000006-0006-0006-0006-000000000006}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1000006-0006-0006-0006-000000000006}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1000006-0006-0006-0006-000000000006}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B1000001-0001-0001-0001-000000000001} = {F0000001-0001-0001-0001-000000000001}
+		{B1000002-0002-0002-0002-000000000002} = {F0000001-0001-0001-0001-000000000001}
+		{B1000003-0003-0003-0003-000000000003} = {F0000001-0001-0001-0001-000000000001}
+		{B1000004-0004-0004-0004-000000000004} = {F0000001-0001-0001-0001-000000000001}
+		{B1000005-0005-0005-0005-000000000005} = {F0000002-0002-0002-0002-000000000002}
+		{B1000006-0006-0006-0006-000000000006} = {F0000002-0002-0002-0002-000000000002}
+	EndGlobalSection
+EndGlobal

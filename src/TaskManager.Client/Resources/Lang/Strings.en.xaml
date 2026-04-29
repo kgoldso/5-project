@@ -1,0 +1,75 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Общие -->
+    <system:String x:Key="AppTitle">Task Manager</system:String>
+    <system:String x:Key="Save">Save</system:String>
+    <system:String x:Key="Cancel">Cancel</system:String>
+    <system:String x:Key="Delete">Delete</system:String>
+    <system:String x:Key="Edit">Edit</system:String>
+    <system:String x:Key="Create">Create</system:String>
+    <system:String x:Key="Close">Close</system:String>
+    <system:String x:Key="Yes">Yes</system:String>
+    <system:String x:Key="No">No</system:String>
+    <system:String x:Key="Loading">Loading...</system:String>
+    <system:String x:Key="Error">Error</system:String>
+    <system:String x:Key="Success">Success</system:String>
+    <system:String x:Key="Confirm">Confirm</system:String>
+    <system:String x:Key="ConfirmDelete">Are you sure you want to delete?</system:String>
+
+    <!-- Авторизация -->
+    <system:String x:Key="Login">Login</system:String>
+    <system:String x:Key="Register">Register</system:String>
+    <system:String x:Key="Username">Username</system:String>
+    <system:String x:Key="Password">Password</system:String>
+    <system:String x:Key="Email">Email</system:String>
+    <system:String x:Key="Logout">Logout</system:String>
+    <system:String x:Key="LoginTitle">Sign In</system:String>
+    <system:String x:Key="RegisterTitle">Sign Up</system:String>
+    <system:String x:Key="NoAccount">Don't have an account?</system:String>
+    <system:String x:Key="HasAccount">Already have an account?</system:String>
+    <system:String x:Key="LoginFailed">Incorrect username or password.</system:String>
+    <system:String x:Key="RegisterSuccess">Registration successful!</system:String>
+    <system:String x:Key="FieldRequired">This field is required.</system:String>
+    <system:String x:Key="PasswordMinLength">Password must be at least 6 characters.</system:String>
+
+    <!-- Процессы -->
+    <system:String x:Key="Processes">Projects</system:String>
+    <system:String x:Key="ProcessTitle">Title</system:String>
+    <system:String x:Key="ProcessDescription">Description</system:String>
+    <system:String x:Key="NewProcess">New Project</system:String>
+    <system:String x:Key="EditProcess">Edit Project</system:String>
+    <system:String x:Key="NoProcesses">No projects yet. Create your first one!</system:String>
+    <system:String x:Key="Tasks">tasks</system:String>
+
+    <!-- Задачи -->
+    <system:String x:Key="TasksTab">Tasks</system:String>
+    <system:String x:Key="TaskTitle">Title</system:String>
+    <system:String x:Key="TaskDescription">Description</system:String>
+    <system:String x:Key="TaskStatus">Status</system:String>
+    <system:String x:Key="TaskPriority">Priority</system:String>
+    <system:String x:Key="TaskDueDate">Due Date</system:String>
+    <system:String x:Key="NewTask">New Task</system:String>
+    <system:String x:Key="EditTask">Edit Task</system:String>
+    <system:String x:Key="NoTasks">No tasks in this project.</system:String>
+    <system:String x:Key="BackToProcesses">Back to Projects</system:String>
+
+    <!-- Статусы задачи -->
+    <system:String x:Key="StatusNotStarted">Not Started</system:String>
+    <system:String x:Key="StatusInProgress">In Progress</system:String>
+    <system:String x:Key="StatusCompleted">Completed</system:String>
+    <system:String x:Key="StatusCancelled">Cancelled</system:String>
+
+    <!-- Приоритеты -->
+    <system:String x:Key="PriorityLow">Low</system:String>
+    <system:String x:Key="PriorityMedium">Medium</system:String>
+    <system:String x:Key="PriorityHigh">High</system:String>
+    <system:String x:Key="PriorityCritical">Critical</system:String>
+
+    <!-- Настройки -->
+    <system:String x:Key="Settings">Settings</system:String>
+    <system:String x:Key="Language">Language</system:String>
+    <system:String x:Key="Theme">Theme</system:String>
+
+</ResourceDictionary>
