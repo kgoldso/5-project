@@ -12,7 +12,7 @@ using Xunit;
 namespace TaskManager.API.Tests.Services;
 
 /// <summary>
-/// Тесты сервиса аутентификации.
+/// Тесты для сервиса аутентификации.
 /// </summary>
 public class AuthServiceTests
 {
@@ -43,7 +43,7 @@ public class AuthServiceTests
     }
 
     [Fact]
-    public async Task RegisterAsync_СоздаётНовогоПользователя()
+    public async Task RegisterAsync_ShouldCreateNewUser_WhenDataIsValid()
     {
         // Arrange
         _userRepoMock.Setup(r => r.ExistsAsync("testuser")).ReturnsAsync(false);
@@ -65,7 +65,7 @@ public class AuthServiceTests
     }
 
     [Fact]
-    public async Task RegisterAsync_ВыбрасываетОшибку_ЕслиПользовательСуществует()
+    public async Task RegisterAsync_ShouldThrow_WhenUserAlreadyExists()
     {
         // Arrange
         _userRepoMock.Setup(r => r.ExistsAsync("existing")).ReturnsAsync(true);
@@ -76,7 +76,7 @@ public class AuthServiceTests
     }
 
     [Fact]
-    public async Task LoginAsync_ВозвращаетТокены_ПриВерныхДанных()
+    public async Task LoginAsync_ShouldReturnTokens_WhenCredentialsAreCorrect()
     {
         // Arrange
         var user = CreateTestUser("testuser", "password123");
@@ -95,7 +95,7 @@ public class AuthServiceTests
     }
 
     [Fact]
-    public async Task LoginAsync_ВыбрасываетОшибку_ПриНеверномПароле()
+    public async Task LoginAsync_ShouldThrow_WhenPasswordIsIncorrect()
     {
         // Arrange
         var user = CreateTestUser("testuser", "correctpassword");
@@ -108,7 +108,7 @@ public class AuthServiceTests
     }
 
     [Fact]
-    public async Task LoginAsync_ВыбрасываетОшибку_ПользовательНеНайден()
+    public async Task LoginAsync_ShouldThrow_WhenUserIsNotFound()
     {
         // Arrange
         _userRepoMock.Setup(r => r.GetByUsernameAsync("nonexistent")).ReturnsAsync((User?)null);
@@ -118,12 +118,10 @@ public class AuthServiceTests
         await Assert.ThrowsAsync<UnauthorizedAccessException>(() => _authService.LoginAsync(request));
     }
 
-    /// <summary>
-    /// Вспомогательный метод: создаёт пользователя с захешированным паролем.
-    /// </summary>
+    // Вспомогательный метод для создания пользователя с хешем пароля
     private static User CreateTestUser(string username, string password)
     {
-        // Используем рефлексию для вызова приватного метода HashPassword
+        // Используем рефлексию для доступа к приватному статическому методу HashPassword
         var method = typeof(AuthService).GetMethod("HashPassword",
             System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)!;
 

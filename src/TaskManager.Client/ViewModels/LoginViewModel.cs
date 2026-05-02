@@ -5,7 +5,7 @@ using TaskManager.Client.Services.Interfaces;
 namespace TaskManager.Client.ViewModels;
 
 /// <summary>
-/// ViewModel экрана авторизации.
+/// ViewModel для экрана авторизации.
 /// </summary>
 public class LoginViewModel : ViewModelBase, INavigationAware
 {
@@ -38,23 +38,22 @@ public class LoginViewModel : ViewModelBase, INavigationAware
         GoToRegisterCommand = new DelegateCommand(OnGoToRegister);
     }
 
-    /// <summary>Проверяет возможность выполнения входа.</summary>
+    // Простая проверка для активации кнопки входа
     private bool CanLogin()
         => !string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password);
 
-    /// <summary>Выполняет попытку аутентификации.</summary>
+    // Выполняем вход и уведомляем главную модель для смены интерфейса
     private async void OnLogin()
     {
         await ExecuteAsync(async () =>
         {
             await _authService.LoginAsync(Username, Password);
-            // Находим MainWindowViewModel для обновления состояния
+            
             var mainVm = System.Windows.Application.Current.MainWindow?.DataContext as MainWindowViewModel;
             mainVm?.OnLoginSuccess();
         });
     }
 
-    /// <summary>Переход на экран регистрации.</summary>
     private void OnGoToRegister()
     {
         _regionManager.RequestNavigate("ContentRegion", "RegisterView");

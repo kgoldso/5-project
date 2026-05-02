@@ -6,6 +6,9 @@ using TaskManager.Shared.DTOs;
 
 namespace TaskManager.API.Services;
 
+/// <summary>
+/// Сервис для работы с отдельными задачами.
+/// </summary>
 public class TaskService(ITaskRepository taskRepository) : ITaskService
 {
     public async Task<IEnumerable<TaskItemDto>> GetByProcessIdAsync(Guid processId)

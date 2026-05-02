@@ -6,6 +6,9 @@ using TaskManager.Shared.DTOs;
 
 namespace TaskManager.API.Services;
 
+/// <summary>
+/// Сервис для управления бизнес-процессами.
+/// </summary>
 public class ProcessService(IProcessRepository processRepository) : IProcessService
 {
     public async Task<IEnumerable<ProcessDto>> GetAllByOwnerAsync(Guid ownerId)
@@ -41,7 +44,7 @@ public class ProcessService(IProcessRepository processRepository) : IProcessServ
             ?? throw new KeyNotFoundException("Процесс не найден.");
 
         if (process.OwnerId != ownerId)
-            throw new UnauthorizedAccessException("Нет доступа к данному процессу.");
+            throw new UnauthorizedAccessException("У вас нет прав для изменения этого процесса.");
 
         process.Title = dto.Title;
         process.Description = dto.Description;
@@ -58,7 +61,7 @@ public class ProcessService(IProcessRepository processRepository) : IProcessServ
             ?? throw new KeyNotFoundException("Процесс не найден.");
 
         if (process.OwnerId != ownerId)
-            throw new UnauthorizedAccessException("Нет доступа к данному процессу.");
+            throw new UnauthorizedAccessException("У вас нет прав для удаления этого процесса.");
 
         processRepository.Remove(process);
         await processRepository.SaveChangesAsync();

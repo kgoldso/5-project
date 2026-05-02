@@ -7,6 +7,9 @@ using TaskManager.Shared.DTOs;
 
 namespace TaskManager.Client.ViewModels;
 
+/// <summary>
+/// Управление списком процессов пользователя.
+/// </summary>
 public class ProcessListViewModel : ViewModelBase, INavigationAware
 {
     private readonly IProcessApiService _processService;
@@ -111,7 +114,7 @@ public class ProcessListViewModel : ViewModelBase, INavigationAware
     private async Task OnDeleteProcessAsync(ProcessDto process)
     {
         var confirmMessage = System.Windows.Application.Current.TryFindResource("ConfirmDelete") as string
-                             ?? "Вы уверены, что хотите удалить?";
+                             ?? "Вы уверены, что хотите удалить этот процесс?";
 
         if (!ErrorHandler.Confirm(confirmMessage)) return;
 
@@ -122,6 +125,7 @@ public class ProcessListViewModel : ViewModelBase, INavigationAware
         });
     }
 
+    // Переход к просмотру задач выбранного процесса
     private void OnOpenProcess(ProcessDto process)
     {
         var parameters = new NavigationParameters

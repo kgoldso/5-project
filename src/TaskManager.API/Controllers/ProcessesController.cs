@@ -11,6 +11,7 @@ namespace TaskManager.API.Controllers;
 [Authorize]
 public class ProcessesController(IProcessService processService) : ControllerBase
 {
+    // Список всех процессов текущего пользователя
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -32,9 +33,6 @@ public class ProcessesController(IProcessService processService) : ControllerBas
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] ProcessCreateDto dto)
     {
-        if (string.IsNullOrWhiteSpace(dto.Title))
-            return BadRequest(new ApiErrorResponse(400, "Название процесса обязательно."));
-
         var userId = GetCurrentUserId();
         var process = await processService.CreateAsync(userId, dto);
         return CreatedAtAction(nameof(GetById), new { id = process.Id }, process);
@@ -43,9 +41,6 @@ public class ProcessesController(IProcessService processService) : ControllerBas
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] ProcessCreateDto dto)
     {
-        if (string.IsNullOrWhiteSpace(dto.Title))
-            return BadRequest(new ApiErrorResponse(400, "Название процесса обязательно."));
-
         var userId = GetCurrentUserId();
         var process = await processService.UpdateAsync(id, userId, dto);
         return Ok(process);
@@ -59,13 +54,11 @@ public class ProcessesController(IProcessService processService) : ControllerBas
         return NoContent();
     }
 
-    /// <summary>
-    /// Extracts the user ID from JWT claims.
-    /// </summary>
+    // Вытаскиваем ID пользователя из токена
     private Guid GetCurrentUserId()
     {
         var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier)
-            ?? throw new UnauthorizedAccessException("Не удалось определить пользователя.");
+            ?? throw new UnauthorizedAccessException("Не удалось определить пользователя по токену.");
 
         return Guid.Parse(userIdClaim);
     }

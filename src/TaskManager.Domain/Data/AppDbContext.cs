@@ -4,7 +4,8 @@ using TaskManager.Domain.Entities;
 namespace TaskManager.Domain.Data;
 
 /// <summary>
-/// Контекст данных приложения.
+/// Основной контекст базы данных приложения.
+/// Настраивает таблицы и связи для пользователей, процессов и задач.
 /// </summary>
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
@@ -17,7 +18,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     {
         base.OnModelCreating(modelBuilder);
 
-        // Конфигурация User
+        // Настройка User: уникальные поля для логина и почты
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(u => u.Id);
@@ -29,7 +30,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             entity.Property(u => u.Role).HasConversion<int>();
         });
 
-        // Конфигурация Process
+        // Настройка Process: привязка к владельцу (User)
         modelBuilder.Entity<Process>(entity =>
         {
             entity.HasKey(p => p.Id);
@@ -42,7 +43,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
                   .OnDelete(DeleteBehavior.Cascade);
         });
 
-        // Конфигурация TaskItem
+        // Настройка TaskItem: привязка к родительскому процессу
         modelBuilder.Entity<TaskItem>(entity =>
         {
             entity.HasKey(t => t.Id);
@@ -57,7 +58,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
                   .OnDelete(DeleteBehavior.Cascade);
         });
 
-        // Конфигурация RefreshToken
+        // Настройка RefreshToken: безопасность и долгоживущие сессии
         modelBuilder.Entity<RefreshToken>(entity =>
         {
             entity.HasKey(rt => rt.Id);

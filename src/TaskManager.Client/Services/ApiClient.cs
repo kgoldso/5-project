@@ -7,15 +7,14 @@ using TaskManager.Client.Services.Interfaces;
 namespace TaskManager.Client.Services;
 
 /// <summary>
-/// HTTP-клиент для взаимодействия с REST API.
-/// Автоматически добавляет JWT-токен в заголовок Authorization.
+/// Обертка над HttpClient для удобного общения с REST API.
+/// Сама берет токены из хранилища и добавляет в заголовки.
 /// </summary>
 public class ApiClient(ITokenStorageService tokenStorage) : IApiClient
 {
     private readonly HttpClient _httpClient = new() { BaseAddress = new Uri("http://localhost:5000") };
     private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
 
-    /// <summary>Выполняет GET-запрос к API.</summary>
     public async Task<T?> GetAsync<T>(string endpoint)
     {
         SetAuthorizationHeader();
@@ -23,7 +22,6 @@ public class ApiClient(ITokenStorageService tokenStorage) : IApiClient
         return await HandleResponseAsync<T>(response);
     }
 
-    /// <summary>Выполняет POST-запрос к API.</summary>
     public async Task<T?> PostAsync<T>(string endpoint, object body)
     {
         SetAuthorizationHeader();
@@ -32,7 +30,6 @@ public class ApiClient(ITokenStorageService tokenStorage) : IApiClient
         return await HandleResponseAsync<T>(response);
     }
 
-    /// <summary>Выполняет PUT-запрос к API.</summary>
     public async Task<T?> PutAsync<T>(string endpoint, object body)
     {
         SetAuthorizationHeader();
@@ -41,7 +38,6 @@ public class ApiClient(ITokenStorageService tokenStorage) : IApiClient
         return await HandleResponseAsync<T>(response);
     }
 
-    /// <summary>Выполняет DELETE-запрос к API.</summary>
     public async Task DeleteAsync(string endpoint)
     {
         SetAuthorizationHeader();
@@ -53,7 +49,7 @@ public class ApiClient(ITokenStorageService tokenStorage) : IApiClient
         }
     }
 
-    /// <summary>Устанавливает Bearer-токен в заголовок запроса.</summary>
+    // Добавляем JWT токен в заголовок запроса
     private void SetAuthorizationHeader()
     {
         var token = tokenStorage.GetAccessToken();
@@ -62,11 +58,9 @@ public class ApiClient(ITokenStorageService tokenStorage) : IApiClient
             : new AuthenticationHeaderValue("Bearer", token);
     }
 
-    /// <summary>Сериализует тело запроса в JSON.</summary>
     private static StringContent SerializeBody(object body)
         => new(JsonSerializer.Serialize(body, JsonOptions), Encoding.UTF8, "application/json");
 
-    /// <summary>Десериализует ответ API или выбрасывает исключение.</summary>
     private static async Task<T?> HandleResponseAsync<T>(HttpResponseMessage response)
     {
         var json = await response.Content.ReadAsStringAsync();
