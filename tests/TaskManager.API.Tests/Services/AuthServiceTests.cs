@@ -121,18 +121,12 @@ public class AuthServiceTests
     // Вспомогательный метод для создания пользователя с хешем пароля
     private static User CreateTestUser(string username, string password)
     {
-        // Используем рефлексию для доступа к приватному статическому методу HashPassword
-        var method = typeof(AuthService).GetMethod("HashPassword",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)!;
-
-        var hash = (string)method.Invoke(null, [password])!;
-
         return new User
         {
             Id = Guid.NewGuid(),
             Username = username,
             Email = $"{username}@test.com",
-            PasswordHash = hash,
+            PasswordHash = PasswordHasher.Hash(password),
             Role = UserRole.User
         };
     }

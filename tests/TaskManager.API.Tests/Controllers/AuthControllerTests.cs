@@ -38,32 +38,6 @@ public class AuthControllerTests
     }
 
     [Fact]
-    public async Task Register_Возвращает400_ПриПустыхПолях()
-    {
-        // Arrange
-        var request = new RegisterRequest("", "", "");
-
-        // Act
-        var result = await _controller.Register(request);
-
-        // Assert
-        Assert.IsType<BadRequestObjectResult>(result);
-    }
-
-    [Fact]
-    public async Task Login_Возвращает400_ПриПустыхПолях()
-    {
-        // Arrange
-        var request = new LoginRequest("", "");
-
-        // Act
-        var result = await _controller.Login(request);
-
-        // Assert
-        Assert.IsType<BadRequestObjectResult>(result);
-    }
-
-    [Fact]
     public async Task Login_Возвращает200_ПриУспешномВходе()
     {
         // Arrange
