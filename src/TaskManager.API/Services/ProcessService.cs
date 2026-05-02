@@ -6,9 +6,6 @@ using TaskManager.Shared.DTOs;
 
 namespace TaskManager.API.Services;
 
-/// <summary>
-/// Реализация бизнес-логики для процессов.
-/// </summary>
 public class ProcessService(IProcessRepository processRepository) : IProcessService
 {
     public async Task<IEnumerable<ProcessDto>> GetAllByOwnerAsync(Guid ownerId)

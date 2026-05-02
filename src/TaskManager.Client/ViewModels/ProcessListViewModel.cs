@@ -7,9 +7,6 @@ using TaskManager.Shared.DTOs;
 
 namespace TaskManager.Client.ViewModels;
 
-/// <summary>
-/// ViewModel списка процессов (проектов) пользователя.
-/// </summary>
 public class ProcessListViewModel : ViewModelBase, INavigationAware
 {
     private readonly IProcessApiService _processService;
@@ -68,7 +65,6 @@ public class ProcessListViewModel : ViewModelBase, INavigationAware
         CancelEditCommand = new DelegateCommand(OnCancelEdit);
     }
 
-    /// <summary>Загружает список процессов пользователя.</summary>
     private async Task LoadProcessesAsync()
     {
         await ExecuteAsync(async () =>
@@ -80,7 +76,6 @@ public class ProcessListViewModel : ViewModelBase, INavigationAware
         });
     }
 
-    /// <summary>Открывает форму создания нового процесса.</summary>
     private void OnNewProcess()
     {
         _editingProcessId = null;
@@ -89,7 +84,6 @@ public class ProcessListViewModel : ViewModelBase, INavigationAware
         IsEditing = true;
     }
 
-    /// <summary>Открывает форму редактирования процесса.</summary>
     private void OnEditProcess(ProcessDto process)
     {
         _editingProcessId = process.Id;
@@ -98,7 +92,6 @@ public class ProcessListViewModel : ViewModelBase, INavigationAware
         IsEditing = true;
     }
 
-    /// <summary>Сохраняет или обновляет процесс.</summary>
     private async Task OnSaveProcessAsync()
     {
         await ExecuteAsync(async () =>
@@ -115,7 +108,6 @@ public class ProcessListViewModel : ViewModelBase, INavigationAware
         });
     }
 
-    /// <summary>Удаляет процесс.</summary>
     private async Task OnDeleteProcessAsync(ProcessDto process)
     {
         var confirmMessage = System.Windows.Application.Current.TryFindResource("ConfirmDelete") as string
@@ -130,7 +122,6 @@ public class ProcessListViewModel : ViewModelBase, INavigationAware
         });
     }
 
-    /// <summary>Открывает список задач выбранного процесса.</summary>
     private void OnOpenProcess(ProcessDto process)
     {
         var parameters = new NavigationParameters

@@ -6,16 +6,11 @@ using TaskManager.Shared.DTOs;
 
 namespace TaskManager.API.Controllers;
 
-/// <summary>
-/// Контроллер для CRUD-операций с процессами.
-/// Все эндпоинты требуют авторизации.
-/// </summary>
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
 public class ProcessesController(IProcessService processService) : ControllerBase
 {
-    /// <summary>Получить все процессы текущего пользователя.</summary>
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -24,7 +19,6 @@ public class ProcessesController(IProcessService processService) : ControllerBas
         return Ok(processes);
     }
 
-    /// <summary>Получить процесс по идентификатору.</summary>
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById(Guid id)
     {
@@ -35,7 +29,6 @@ public class ProcessesController(IProcessService processService) : ControllerBas
         return Ok(process);
     }
 
-    /// <summary>Создать новый процесс.</summary>
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] ProcessCreateDto dto)
     {
@@ -47,7 +40,6 @@ public class ProcessesController(IProcessService processService) : ControllerBas
         return CreatedAtAction(nameof(GetById), new { id = process.Id }, process);
     }
 
-    /// <summary>Обновить существующий процесс.</summary>
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] ProcessCreateDto dto)
     {
@@ -59,7 +51,6 @@ public class ProcessesController(IProcessService processService) : ControllerBas
         return Ok(process);
     }
 
-    /// <summary>Удалить процесс.</summary>
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id)
     {
@@ -68,7 +59,9 @@ public class ProcessesController(IProcessService processService) : ControllerBas
         return NoContent();
     }
 
-    /// <summary>Извлекает идентификатор пользователя из JWT claims.</summary>
+    /// <summary>
+    /// Extracts the user ID from JWT claims.
+    /// </summary>
     private Guid GetCurrentUserId()
     {
         var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier)

@@ -5,15 +5,11 @@ using TaskManager.Shared.DTOs;
 
 namespace TaskManager.API.Controllers;
 
-/// <summary>
-/// Контроллер для CRUD-операций с задачами.
-/// </summary>
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
 public class TasksController(ITaskService taskService) : ControllerBase
 {
-    /// <summary>Получить все задачи указанного процесса.</summary>
     [HttpGet("by-process/{processId:guid}")]
     public async Task<IActionResult> GetByProcess(Guid processId)
     {
@@ -21,7 +17,6 @@ public class TasksController(ITaskService taskService) : ControllerBase
         return Ok(tasks);
     }
 
-    /// <summary>Получить задачу по идентификатору.</summary>
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById(Guid id)
     {
@@ -32,7 +27,6 @@ public class TasksController(ITaskService taskService) : ControllerBase
         return Ok(task);
     }
 
-    /// <summary>Создать новую задачу.</summary>
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] TaskItemCreateDto dto)
     {
@@ -43,7 +37,6 @@ public class TasksController(ITaskService taskService) : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = task.Id }, task);
     }
 
-    /// <summary>Обновить задачу.</summary>
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] TaskItemCreateDto dto)
     {
@@ -54,7 +47,6 @@ public class TasksController(ITaskService taskService) : ControllerBase
         return Ok(task);
     }
 
-    /// <summary>Удалить задачу.</summary>
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id)
     {
