@@ -4,7 +4,7 @@ using TaskManager.Domain.Entities;
 namespace TaskManager.Domain.Data;
 
 /// <summary>
-/// Контекст базы данных приложения (PostgreSQL).
+/// Контекст данных приложения.
 /// </summary>
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
